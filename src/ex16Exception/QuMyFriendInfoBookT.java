@@ -4,18 +4,18 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
- 친구를 추상화한 최상위 클래스로 해당 프로그램에서는 Friend클래스로 인스턴스 생성은 하지않는다.
+ 친구를 추상화한 최상위 클래스로 해당 프로그램에서는 Friend2클래스로 인스턴스 생성은 하지않는다.
  단지 기본정보를 저장하고 상속을 목적으로 정의된 클래스이다.
  이와같이 데이터를 저장하기 위한 용도의 클래스를 VO(Value Object)라고 한다.
  즉 값만 가진 객체라는 뜻이다.
  */
-class Friend {
+class Friend2 {
 	// 멤버변수 : 이름, 전화번호, 주소 기본정보 3가지를 저장한다.
 	String name;
 	String phone;
 	String addr;
 	// 생성자 : 멤버변수 초기화. 멤버 구분을 위한 this 사용.
-	public Friend(String name, String phone, String addr) {
+	public Friend2(String name, String phone, String addr) {
 		this.name = name;
 		this.phone = phone;
 		this.addr = addr;
@@ -34,11 +34,11 @@ class Friend {
 }
 
 // 고등학교 친구의 정보를 저장하기위한 자식 클래스
-class HighFriend extends Friend {
+class HighFriend2 extends Friend2 {
 	// 확장한 멤버변수 : 별명
 	String nickname;
 	// 생성자 : 부모의 생성자를 먼저 호출한 후 멤버변수를 초기화한다.
-	public HighFriend(String name, String phone, String addr, String nickname) {
+	public HighFriend2(String name, String phone, String addr, String nickname) {
 		super(name, phone, addr);
 		this.nickname = nickname;
 	}
@@ -64,11 +64,11 @@ class HighFriend extends Friend {
 	}
 }
 // 대학교 친구 정보를 저장하기 위한 자식클래스
-class UnivFriend extends Friend {
+class UnivFriend2 extends Friend2 {
 	// 확장한 멤버변수로 전공을 표현
 	String major;
 	// 생성자
-	public UnivFriend(String name, String phone, String addr, String major) {
+	public UnivFriend2(String name, String phone, String addr, String major) {
 		super(name, phone, addr);
 		this.major = major;
 	}
@@ -115,7 +115,7 @@ public class QuMyFriendInfoBookT {
 		// 사용자 입력을 위한 인스턴스 생성
 		Scanner scan = new Scanner(System.in);
 		// 기능을 담당하는 핸들러 클래스의 인스턴스 생성
-		FriendInfoHandler handler = new FriendInfoHandler(100);
+		Friend2InfoHandler2 handler = new Friend2InfoHandler2(100);
 		
 		/*
 		 무한루프로 사용자가 원할때 종료할 수 있는 구조를 만들어준다.
@@ -134,7 +134,7 @@ public class QuMyFriendInfoBookT {
 				// 3. 선택한 번호에 따라 메서드를 호출
 				switch(choice) {
 				case 1: case 2:
-					handler.addFriend(choice);
+					handler.addFriend2(choice);
 					break;
 				case 3:
 					handler.showAllData();
@@ -169,28 +169,28 @@ public class QuMyFriendInfoBookT {
 /*
  해당 프로그램에서 기능을 담당하는 클래스로 '핸들러' 혹은 '매니저' 클래스라고 부른다.
  */
-class FriendInfoHandler {
+class Friend2InfoHandler2 {
 	// 멤버변수
 	/*
 	 상속관계에서 부모클래스로 인스턴스 배열을 생성한다. 부모로 자식을 참조할 수 있으므로
 	 부모타입의 배열에는 자식타입의 인스턴스를 모두 저장할 수 있다.
 	 */
-	private Friend[] myFriends;
+	private Friend2[] myFriend2s;
 	/*
 	 배열에 저장된 연락처 정보를 카운트하기 위한 변수로, 추가할때마다 ++(증가연산자)로 1씩 증가시킨다.
 	 */
-	private int numOfFriends;
+	private int numOfFriend2s;
 	
 	// 생성자
-	public FriendInfoHandler(int num) {
+	public Friend2InfoHandler2(int num) {
 		// 정보저장을 위한 인스턴스 배열을 생성
-		myFriends = new Friend[num];
+		myFriend2s = new Friend2[num];
 		// 배열의 인덱스는 0부터 시작이므로 이와같이 초기화
-		numOfFriends = 0;
+		numOfFriend2s = 0;
 	}
 	
 	// 연락처 정보 추가
-	public void addFriend(int choice) {
+	public void addFriend2(int choice) {
 		// 고딩 or 대딩 모두 기본정보가 있으므로 먼저 입력받는다.
 		Scanner scan = new Scanner(System.in);
 		String iName, iPhone, iAddr, iNickname, iMajor;
@@ -203,9 +203,9 @@ class FriendInfoHandler {
 			// 고딩인 경우 별명을 추가로 입력받은 후
 			System.out.print("별명:");iNickname = scan.nextLine();
 			// High 인스턴스를 생성하고 ..
-			HighFriend high = new HighFriend(iName, iPhone, iAddr, iNickname);
-			// Friend 타입의 인스턴스 배열에 추가한다.
-			myFriends[this.numOfFriends++] = high;
+			HighFriend2 high = new HighFriend2(iName, iPhone, iAddr, iNickname);
+			// Friend2 타입의 인스턴스 배열에 추가한다.
+			myFriend2s[this.numOfFriend2s++] = high;
 			/*
 			 인덱스로 사용된 변수의 초기값이 0이므로, 0번 인덱스에 추가된 후 1 증가한다.
 			 이를 위해 '후위증가'하고 있다.
@@ -215,7 +215,7 @@ class FriendInfoHandler {
 			// 대딩인 경우 전공을 추가로 입력받은 후
 			System.out.print("전공:");iMajor = scan.nextLine();
 			// 인스턴스 생성과 동시에 배열에 추가한다.
-			myFriends[numOfFriends++] = new UnivFriend(iName, iPhone, iAddr, iMajor);
+			myFriend2s[numOfFriend2s++] = new UnivFriend2(iName, iPhone, iAddr, iMajor);
 		}
 		
 		System.out.println("친구정보 입력이 완료되었습니다.");
@@ -224,33 +224,33 @@ class FriendInfoHandler {
 	/*
 	 저장된 친구의 정보를 출력하기 위한 멤버메서드
 	 1. 친구정보를 추가할 때 High 혹은 Univ 인스턴스를 배열에 저장한다.
-	 2. 이때 인스턴스는 Friend로 자동형변환(업캐스팅)되어 저장된다.
+	 2. 이때 인스턴스는 Friend2로 자동형변환(업캐스팅)되어 저장된다.
 	 3. 정보 출력시 배열에 입력된 개체수만큼 반복하여 각 인자를 통해 정보를 출력한다.
 	 4. 출력을 위한 멤버메서드는 상속관계에서 오버라이딩 되어있으므로 참조변수의 영향없이
 	 	항상 자식클래스에 오버라이딩 된 메서드가 호출된다.
-	 5. 즉 저장된 인스턴스는 Friend 타입이지만 오버라이딩을 통해 별도의 형변환이 필요하지않다.
+	 5. 즉 저장된 인스턴스는 Friend2 타입이지만 오버라이딩을 통해 별도의 형변환이 필요하지않다.
 	 	항상 원하는 정보를 간단히 출력할 수 있다.
 	 */
 	public void showAllData() {
-		for(int i=0; i<numOfFriends; i++) {
-			myFriends[i].showAllDate();
+		for(int i=0; i<numOfFriend2s; i++) {
+			myFriend2s[i].showAllDate();
 		}
 		System.out.println("==전체정보가 출력되었습니다==");
 	}
 	// 저장된 연락처의 간략정보(2가지)만 출력
 	public void showSimpleData() {
 		/*
-		 만약 부모클래스인 Friend에 showBasicInfo() 를 정의하지 않았다면,
+		 만약 부모클래스인 Friend2에 showBasicInfo() 를 정의하지 않았다면,
 		 자식클래스에서는 오버라이딩을 할 수 없으므로 개별적인 메서드로 정의해야한다.
-		 정보가 저장되는 배열은 Friend 타입이므로 자식인스턴스를 저장하면 자동으로 형변환(업캐스팅) 된다.
+		 정보가 저장되는 배열은 Friend2 타입이므로 자식인스턴스를 저장하면 자동으로 형변환(업캐스팅) 된다.
 		 이때 자식의 정보를 출력하는 메서드를 바로 호출할 수 없으므로 아래와 같이 일일이 확인한 후
 		 강제형변환(다운캐스팅) 해야한다. 또한 상속의 구조가 복잡해질수록 더 많은 조건식을 추가해야한다. 
 		 
-		for(int i=0; i<numOfFriends; i++) {
-			if(myFriends[i] instanceof UnivFriend) {
-				((UnivFriend) myFriends[i]).showBasicInfo();
-			} else if(myFriends[i] instanceof HighFriend) {
-				((HighFriend) myFriends[i]).showBasicInfo();
+		for(int i=0; i<numOfFriend2s; i++) {
+			if(myFriend2s[i] instanceof UnivFriend2) {
+				((UnivFriend2) myFriend2s[i]).showBasicInfo();
+			} else if(myFriend2s[i] instanceof HighFriend2) {
+				((HighFriend2) myFriend2s[i]).showBasicInfo();
 			}
 		}
 		*/
@@ -258,8 +258,8 @@ class FriendInfoHandler {
 		/*
 		 오버라이딩을 이용하면 상속의 구조가 복잡해지더라도 아래와 같이 출력문장 한줄이면 간단히 처리할 수 있다.
 		 */
-		for(int i=0; i<numOfFriends; i++) {
-			myFriends[i].showBasicInfo();
+		for(int i=0; i<numOfFriend2s; i++) {
+			myFriend2s[i].showBasicInfo();
 		}
 		
 		System.out.println("==간략정보가 출력되었습니다==");
@@ -274,14 +274,14 @@ class FriendInfoHandler {
 		String searchName = scan.nextLine();
 		
 		// 배열에 저장된 연락처의 갯수만큼 반복
-		for(int i=0; i<numOfFriends; i++) {
+		for(int i=0; i<numOfFriend2s; i++) {
 			/*
 			 배열의 각 인덱스에 저장된 인스턴스의 참조값을 통해 멤버변수에 접근한다.
 			 검색을 위해 입력한 이름과 비교해서 일치하는 경우에는 정보를 출력한다.
 			 compareTo 대신 equals를 사용해도 결과는 동일하다.
 			 */
-			if(searchName.compareTo(myFriends[i].name)==0) {
-				myFriends[i].showAllDate();
+			if(searchName.compareTo(myFriend2s[i].name)==0) {
+				myFriend2s[i].showAllDate();
 				System.out.println("**귀하가 요청하는 정보를 찾았습니다.**");
 				// 확인용 변수를 true로 변경
 				isFind = true;
@@ -302,19 +302,19 @@ class FriendInfoHandler {
 		int deleteIndex = -1;
 		
 		// 삭제할 인스턴스를 찾기위해 반복
-		for(int i=0; i<numOfFriends; i++) {
+		for(int i=0; i<numOfFriend2s; i++) {
 			// 일치하는 이름이 있는지 확인
-			if(deleteName.compareTo(myFriends[i].name)==0) {
+			if(deleteName.compareTo(myFriend2s[i].name)==0) {
 				/*
 				 인스턴스 배열에서 삭제는 null값으로 변경하면 된다.
 				 참조값이 null이라는 것은 참조할 인스턴스가 없다는 의미이므로 삭제한 것과 동일한 결과가 된다.
 				 실제로 참조되지 않는 인스턴스는 "가비지 컬렉션"에 의해 자동으로 삭제된다.
 				 */
-				myFriends[i] = null;
+				myFriend2s[i] = null;
 				// 삭제된 원소의 index를 저장한다.
 				deleteIndex = i;
 				// 전체 카운트를 1 차감한다.
-				numOfFriends--;
+				numOfFriend2s--;
 				// 인스턴스를 삭제하면 즉시 반복문을 탈출한다.
 				break;
 			}
@@ -328,8 +328,8 @@ class FriendInfoHandler {
 			 인스턴스 배열에서 원소를 삭제한 후 바로 뒷부분에 있는 원소를 하나씩 앞으로 복사한다.
 			 만약 이 부분이 처리되지 않으면 차후 검색이나 출력시 NullPoinerException이 발생할 수 있다.
 			 */
-			for(int i=deleteIndex; i<numOfFriends; i++) {
-				myFriends[i] = myFriends[i+1];
+			for(int i=deleteIndex; i<numOfFriend2s; i++) {
+				myFriend2s[i] = myFriend2s[i+1];
 			}
 			System.out.println("===데이터("+deleteIndex+"번)가 삭제되었습니다==");
 		}
