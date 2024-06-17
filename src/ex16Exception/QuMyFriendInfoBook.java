@@ -88,7 +88,7 @@ class UnivFriend extends Friend {
 }
 
 // 메인클래스
-public class Ex07MyFriendInfoBook {
+public class QuMyFriendInfoBook {
 
 	/*
 	 메뉴를 출력하는 용도의 메서드로 매개변수, 반환타입이 없는 형태로 정의한다.
